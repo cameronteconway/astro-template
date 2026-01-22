@@ -1,0 +1,144 @@
+---
+import Button from "../Button.astro";
+import Logo from "../Logo.astro";
+import ListLink from "./ListLink.astro";
+import MenuToggle from "./MenuToggle.astro";
+
+const navItems = [
+  { text: "Product", href: "Go to #" },
+  { text: "Solutions", href: "Go to #" },
+  { text: "Resources", href: "Go to #" },
+  { text: "Pricing", href: "Go to #" },
+];
+---
+
+<div class="scroll-header">
+  <Logo size="md" />
+  <nav id="scroll-menu" class="scroll-header__nav" aria-expanded="false">
+    <div class="scroll-header__content">
+      <ul class="scroll-header__list">
+        {
+          navItems.map((item) => (
+            <ListLink text={item.text} ariaLabel={item.text} />
+          ))
+        }
+      </ul>
+      <div class="scroll-header__login-container hide-desktop">
+        <Button
+          text="Login"
+          size="lg"
+          width="full"
+          aria-label="Go to user login"
+          href="https://www.google.com"
+        />
+      </div>
+      <div class="scroll-header__login-container hide-mobile">
+        <Button
+          text="Login"
+          variant="primary"
+          aria-label="Go to user login"
+          href="https://www.google.com"
+        />
+      </div>
+    </div>
+  </nav>
+
+  <MenuToggle id="scroll-menu" />
+</div>
+
+<style lang="scss">
+  .scroll-header {
+    --transition-speed: 0.3s;
+
+    margin: 0 auto;
+    max-width: var(--header-max-width);
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    
+    @media (min-width: 768px) {
+      padding-inline: 2rem;
+    }
+
+    @media (min-width: 1400px) {
+      padding-inline: 0;
+    }
+
+    &__nav {
+      position: fixed;
+      visibility: hidden;
+      top: 0;
+      left: 0;
+      z-index: 20;
+      height: 100vh;
+      width: 100vw;
+      opacity: 0;
+      transition: all var(--transition-speed) ease;
+      background-color: var(--secondary);
+      @media (min-width: 768px) {
+        visibility: visible;
+        opacity: 100;
+        position: relative;
+        top: unset;
+        left: unset;
+        height: unset;
+        background-color: transparent;
+        margin-left: 40px;
+      }
+      @media (min-width: 1200px) {
+        margin-left: 60px;
+      }
+    }
+
+    &__content {
+      height: 95%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding-inline: 1rem;
+      @media (min-width: 768px) {
+        flex-direction: row;
+        height: unset;
+        padding: unset;
+      }
+    }
+
+    .active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    &__list {
+      margin-top: 112px;
+      list-style-type: none;
+      padding-inline: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+      @media (min-width: 768px) {
+        margin-top: unset;
+        flex-direction: row;
+        margin-bottom: unset;
+        align-items: center;
+        padding: unset;
+      }
+    }
+
+    &__login-container {
+      padding-inline: 1rem;
+      text-align: center;
+      width: 100%;
+      @media (min-width: 768px) {
+        padding: unset;
+        bottom: unset;
+        width: fit-content;
+      }
+    }
+  }
+</style>
+

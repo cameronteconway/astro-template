@@ -1,0 +1,59 @@
+---
+interface Props {
+  size?: "sm" | "md" | "lg";
+}
+
+const { size = "md" } = Astro.props;
+
+const dimensions = {
+  sm: { icon: 24, text: "1rem" },
+  md: { icon: 36, text: "1.375rem" },
+  lg: { icon: 52, text: "1.75rem" },
+};
+
+const current = dimensions[size];
+---
+
+<a href="/" aria-label="Go to homepage" class:list={["logo", `logo--${size}`]}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="currentColor"
+    class="logo__icon"
+    width={current.icon}
+    height={current.icon}
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"
+    ></path>
+  </svg>
+  <span class="logo__text" style={`font-size: ${current.text}`}>Expnd</span>
+</a>
+
+<style lang="scss">
+  .logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: var(--secondary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    &:hover,
+    &:focus {
+      color: var(--secondaryFaded);
+    }
+
+    &__icon {
+      flex-shrink: 0; // Prevents the icon from squishing on tiny screens
+    }
+
+    &__text {
+      font-weight: 400; // Better rendering on mobile
+      line-height: 1;
+    }
+  }
+</style>

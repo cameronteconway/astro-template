@@ -1,0 +1,72 @@
+---
+import ScrollHeader from "./ScrollHeader.astro";
+import StaticHeader from "./StaticHeader.astro";
+---
+
+<header class="header">
+  <div class="header__container">
+    <div class="header__static-container">
+      <StaticHeader />
+    </div>
+    <div id="scroll-header" class="header__scroll-container">
+      <ScrollHeader />
+    </div>
+  </div>
+</header>
+
+<style lang="scss">
+  .header {
+    --transition-speed: 0.3s;
+
+    &__static-container {
+      background-color: var(--primary);
+    }
+
+    &__scroll-container {
+      position: fixed;
+      top: -80px;
+      width: 100%;
+      transition: transform var(--transition-speed) ease;
+      transform: translateY(0);
+      z-index: 30;
+      background-color: white;
+      border-bottom: 1px solid var(--blackFaded);
+
+      &.show {
+        transform: translateY(80px);
+      }
+    }
+  }
+
+  @media (min-width: 576px) {
+  }
+
+  @media (min-width: 768px) {
+  }
+
+  @media (min-width: 992px) {
+  }
+
+  @media (min-width: 1200px) {
+  }
+
+  @media (min-width: 1400px) {
+  }
+</style>
+
+<script>
+  const scrollHeader = document.getElementById("scroll-header");
+  const triggerPoint = 300; // px from top before header drops
+
+  if(!scrollHeader) {
+    throw new Error("'#scroll-header' element not found");
+  }
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > triggerPoint) {
+      scrollHeader.classList.add("show");
+    } else {
+      scrollHeader.classList.remove("show");
+    }
+  });
+</script>
