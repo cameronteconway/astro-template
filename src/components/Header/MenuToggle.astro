@@ -86,19 +86,17 @@
   const menuToggle = document.querySelector(`#toggle-${id}`);
   const menu = document.querySelector(`#${id}`);
 
-  if (!menuToggle || !menu) {
-    throw new Error("'#menu-toggle' or '#static-menu' element not found");
-  };
+  if (!menuToggle || !menu) return;
 
-  menuToggle?.addEventListener("click", function () {
-    const isExpanded = menu?.getAttribute("aria-expanded");
+  menuToggle.addEventListener("click", function () {
+    const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
 
     // Update Button state
     menuToggle.setAttribute("aria-expanded", String(!isExpanded));
     menuToggle.classList.toggle("is-active");
 
     // Update Menu state
-    menu.setAttribute("aria-expanded", String(!isExpanded));
     menu.classList.toggle("active");
+    menu.hidden = isExpanded;
   });
 </script>
